@@ -1,0 +1,9 @@
+[build]
+  command = "cd backend && npm install && cd ../frontend && npm install && npm run build"
+  publish = "frontend/build"
+  functions = "backend/netlify/functions"
+
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/api/:splat"
+  status = 200
