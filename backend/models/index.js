@@ -1,8 +1,15 @@
 const { Sequelize, DataTypes } = require('sequelize');
-const sequelize = new Sequelize({
-  dialect: 'sqlite',
-  storage: './database.sqlite'
-  // 注意：这里不再需要 dialectModule 那一行
+
+// 从环境变量读取 Supabase 连接字符串
+const sequelize = new Sequelize(process.env.DATABASE_URL, {
+  dialect: 'postgres',
+  dialectOptions: {
+    ssl: {
+      require: true,
+      rejectUnauthorized: false
+    }
+  },
+  logging: false
 });
 
 const User = sequelize.define('User', {
